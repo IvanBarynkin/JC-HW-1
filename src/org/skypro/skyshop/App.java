@@ -1,18 +1,21 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.discountedproduct.DiscountedProduct;
+import org.skypro.skyshop.fixpriceproduct.FixPriceProduct;
+import org.skypro.skyshop.simpleproduct.SimpleProduct;
 
 public class App {
     public static void main() {
 
-        //Создание продуктов:
+        //Создание обычных и специальных продуктов:
         System.out.println("//Создание продуктов:");
-        Product first = new Product("one", 1);
-        Product second = new Product("two", 2);
-        Product third = new Product("three", 4);
-        Product fourth = new Product("four", 8);
-        Product fifth = new Product("five", 16);
+
+        SimpleProduct first = new SimpleProduct("one", 100);
+        FixPriceProduct second = new FixPriceProduct("two", 200);
+        DiscountedProduct third = new DiscountedProduct("three", 400, 25);
+        DiscountedProduct fourth = new DiscountedProduct("four", 800, 50);
+        SimpleProduct fifth = new SimpleProduct("five", 1600);
 
         //Создание корзины:
         System.out.println("//Создание корзины:");
@@ -26,41 +29,19 @@ public class App {
         basket.addProduct(fourth);
         basket.addProduct(fifth);
 
-        //Добавление продукта в заполненную корзину, в которой нет свободного места:
-        System.out.println("//Попытка добавить продукт в уже полностью заполненную корзину:");
-        Product sixth = new Product("six", 32);
-        basket.addProduct(sixth);
+        //Проверка методов получения объекта в виде строки:
+        System.out.println("//Проверка методов получения объекта в виде строки:");
+        System.out.println(first);
+        System.out.println(second);
+        System.out.println(third);
+        System.out.println(fourth);
+        System.out.println(fifth);
 
-        //Печать содержимого корзины с несколькими товарами:
-        System.out.println("//Вывод списка наполненной корзины:");
-        System.out.println(basket);
 
-        //Получение стоимости корзины с несколькими товарами:
-        System.out.println("//Получение стоимости корзины с несколькими товарами:");
-        System.out.println(basket.basketCost());
+        //Печать содержимого корзины
+        System.out.println("//Печать содержимого корзины");
+        System.out.print(basket);
 
-        //Поиск товара, который есть в корзине:
-        System.out.println("//Поиск товара, который есть в корзине:");
-        basket.checkProduct("one");
 
-        //Поиск товара, которого нет в корзине:
-        System.out.println("//Поиск товара, которого нет в корзине:");
-        basket.checkProduct("six");
-
-        //Очистка корзины:
-        System.out.println("//Очистка корзины:");
-        basket.clear();
-
-        //Печать содержимого пустой корзины:
-        System.out.println("//Печать содержимого пустой корзины:");
-        System.out.println(basket);
-
-        //Получение стоимости пустой корзины:
-        System.out.println("//Получение стоимости пустой корзины:");
-        System.out.println(basket.basketCost());
-
-        //Поиск товара по имени в пустой корзине:
-        System.out.println("//Поиск товара в пустой корзине:");
-        basket.checkProduct("one");
     }
 }

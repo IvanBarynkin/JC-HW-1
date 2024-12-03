@@ -3,23 +3,21 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ProductBasket {
 
     private final ArrayList<Product> products;
     private final int size;
 
-    public  ProductBasket(int size){
+    public ProductBasket(int size) {
         this.size = size;
         products = new ArrayList<>(size);
     }
 
     public void addProduct(Product product) {
-        if(products.size() < size) {
+        if (products.size() < size) {
             products.add(product);
-        }
-        else{
+        } else {
             System.out.println("Корзина заполнена!");
         }
     }
@@ -34,7 +32,7 @@ public class ProductBasket {
 
     public boolean checkProduct(String name) {
 
-        if(products.isEmpty()){
+        if (products.isEmpty()) {
             System.out.println("Корзина пуста.");
             return false;
         }
@@ -57,10 +55,15 @@ public class ProductBasket {
     public String toString() {
         if (!products.isEmpty()) {
             String str = "";
+            int specialProductAmount = 0;
             for (Product product : products) {
-                str += product.getName() + ": " + product.getCost() + "\n";
+                if (product.isSpecial()) {
+                    specialProductAmount += 1;
+                }
+                str += product + "\n";
             }
             str += "Итого: " + this.basketCost() + "\n";
+            str += "Специальных товаров: " + specialProductAmount + "\n";
             return str;
         } else {
             return "В корзине пусто.";
