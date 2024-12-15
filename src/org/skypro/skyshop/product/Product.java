@@ -10,7 +10,9 @@ public abstract class Product {
 
     public abstract int getCost();
 
-    public abstract boolean isSpecial();
+    public boolean isSpecial() {
+        return false;
+    }
 
     public String getName() {
         return name;

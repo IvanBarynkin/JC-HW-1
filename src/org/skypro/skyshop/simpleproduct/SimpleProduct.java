@@ -4,7 +4,7 @@ import org.skypro.skyshop.product.Product;
 
 public class SimpleProduct extends Product {
 
-    int cost;
+    private int cost;
 
     public SimpleProduct(String name, int cost) {
         super(name);
@@ -14,11 +14,6 @@ public class SimpleProduct extends Product {
     @Override
     public int getCost() {
         return cost;
-    }
-
-    @Override
-    public boolean isSpecial() {
-        return false;
     }
 
 

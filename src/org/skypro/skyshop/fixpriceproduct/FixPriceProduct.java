@@ -4,7 +4,7 @@ import org.skypro.skyshop.product.Product;
 
 public class FixPriceProduct extends Product {
 
-    final int FIX_COST;
+    private final int FIX_COST;
 
     public FixPriceProduct(String name, int fixCost) {
         super(name);
