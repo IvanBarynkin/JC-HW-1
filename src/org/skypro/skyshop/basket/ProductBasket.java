@@ -53,20 +53,20 @@ public class ProductBasket {
     @Override
 
     public String toString() {
-        if (!products.isEmpty()) {
-            String str = "";
-            int specialProductAmount = 0;
-            for (Product product : products) {
-                if (product.isSpecial()) {
-                    specialProductAmount += 1;
-                }
-                str += product + "\n";
-            }
-            str += "Итого: " + this.basketCost() + "\n";
-            str += "Специальных товаров: " + specialProductAmount + "\n";
-            return str;
-        } else {
+        if (products.isEmpty()) {
             return "В корзине пусто.";
         }
+        String str = "";
+        int specialProductAmount = 0;
+        for (Product product : products) {
+            if (product.isSpecial()) {
+                specialProductAmount++;
+            }
+            str += product + "\n";
+        }
+        str += "Итого: " + this.basketCost() + "\n";
+        str += "Специальных товаров: " + specialProductAmount + "\n";
+        return str;
     }
 }
+
