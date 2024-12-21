@@ -19,7 +19,7 @@ public class SimpleProduct extends Product {
 
     @Override
     public String toString() {
-        return (name + ": " + cost);
+        return (name + " " + cost);
     }
 
 }
