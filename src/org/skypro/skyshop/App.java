@@ -68,5 +68,7 @@ public class App {
         //Поиск объектов по запросу "333"
         System.out.println("//Поиск объектов по запросу \"333\"");
         System.out.println(Arrays.toString(searchPull.search("333")));
+
+        first.getStringRepresentation();
     }
 }

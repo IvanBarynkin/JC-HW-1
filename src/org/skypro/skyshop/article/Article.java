@@ -36,10 +36,6 @@ public class Article implements Searchable {
         return name;
     }
 
-    @Override
-    public void getStringRepresentation() {
-        System.out.println(name + " - article" );
-    }
 
     @Override
     public String toString() {

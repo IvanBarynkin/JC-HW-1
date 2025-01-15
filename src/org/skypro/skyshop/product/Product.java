@@ -25,11 +25,6 @@ public abstract class Product implements Searchable {
         return name;
     }
 
-    @Override
-    public void getStringRepresentation() {
-        System.out.println(name + " - product" );
-    }
-
     public abstract int getCost();
 
     public boolean isSpecial() {

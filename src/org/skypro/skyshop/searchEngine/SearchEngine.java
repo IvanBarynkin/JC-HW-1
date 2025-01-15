@@ -3,8 +3,8 @@ package org.skypro.skyshop.searchEngine;
 import org.skypro.skyshop.searchable.Searchable;
 
 public class SearchEngine {
-    Searchable[] searchablePull;
-    static int count = 0;
+    private final Searchable[] searchablePull;
+    private int count = 0;
 
     public SearchEngine(int size) {
         this.searchablePull = new Searchable[size];
@@ -30,7 +30,11 @@ public class SearchEngine {
     }
 
     public void add(Searchable addSearchableUnit) {
-        this.searchablePull[count] = addSearchableUnit;
+        if (count == searchablePull.length) {
+            System.out.println("Пулл поиска заполнен!");
+        } else {
+            this.searchablePull[count] = addSearchableUnit;
+        }
         count++;
     }
 }

@@ -8,7 +8,7 @@ public interface Searchable {
 
     String searchName();
 
-    default void getStringRepresentation(){
-        System.out.println();
+    default void getStringRepresentation() {
+        System.out.println("Имя - " + this.searchName() + " , тип объекта - " + this.searchContentType());
     }
 }
