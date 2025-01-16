@@ -34,7 +34,7 @@ public class SearchEngine {
             System.out.println("Пулл поиска заполнен!");
         } else {
             this.searchablePull[count] = addSearchableUnit;
+            count++;
         }
-        count++;
     }
 }
