@@ -8,6 +8,11 @@ public class FixPriceProduct extends Product {
 
     public FixPriceProduct(String name, int fixCost) {
         super(name);
+        try{
+            checkCost(fixCost);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
         this.FIX_COST = fixCost;
     }
 

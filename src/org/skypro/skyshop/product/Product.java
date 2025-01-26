@@ -1,14 +1,21 @@
 package org.skypro.skyshop.product;
 
+import org.skypro.skyshop.InputChecks.InputChecks;
 import org.skypro.skyshop.searchable.Searchable;
 
-public abstract class Product implements Searchable {
+public abstract class Product implements Searchable, InputChecks {
 
     protected String name;
 
     public Product(String name) {
-        this.name = name;
+        try{
+            checkName(name);
+        } catch (IllegalArgumentException e){
+            System.out.println(e);
+        }
+            this.name = name;
     }
+
 
     @Override
     public String searchContentType() {

@@ -3,11 +3,17 @@ package org.skypro.skyshop.discountedproduct;
 import org.skypro.skyshop.product.Product;
 
 public class DiscountedProduct extends Product {
-    private int baseCost;
-    private int discountPercent;
+    private final int baseCost;
+    private final int discountPercent;
 
     public DiscountedProduct(String name, int baseCost, int discountPercent) {
         super(name);
+        try {
+            checkCost(baseCost);
+            checkDiscount(discountPercent);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
         this.baseCost = baseCost;
         this.discountPercent = discountPercent;
     }

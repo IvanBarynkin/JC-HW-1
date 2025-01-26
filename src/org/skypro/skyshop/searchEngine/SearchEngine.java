@@ -37,4 +37,29 @@ public class SearchEngine {
             count++;
         }
     }
+
+    public Searchable searchCoincidence(String search) throws BestResultNotFound {
+        int IndexObjectMaxCoincidences = 0;
+        int maxCoincidence = 0;
+        for (int i = 0; i < searchablePull.length; i++) {
+            String str = searchablePull[i].searchTerm();
+            int coincidence = 0;
+            int strIndex = 0;
+            int subStrIndex = str.indexOf(search, strIndex);
+            while (subStrIndex != -1) {
+                coincidence++;
+                strIndex += search.length();
+                subStrIndex = str.indexOf(search, strIndex);
+            }
+            if (coincidence > maxCoincidence) {
+                maxCoincidence = coincidence;
+                IndexObjectMaxCoincidences = i;
+            }
+        }
+        if (maxCoincidence == 0) {
+            throw new BestResultNotFound("По запросу \"" + search + "\" не найдено результатов.");
+        } else {
+            return searchablePull[IndexObjectMaxCoincidences];
+        }
+    }
 }
