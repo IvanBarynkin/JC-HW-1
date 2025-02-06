@@ -2,47 +2,38 @@ package org.skypro.skyshop.searchEngine;
 
 import org.skypro.skyshop.searchable.Searchable;
 
-public class SearchEngine {
-    private final Searchable[] searchablePull;
-    private int count = 0;
+import java.util.ArrayList;
 
-    public SearchEngine(int size) {
-        this.searchablePull = new Searchable[size];
+public class SearchEngine {
+    private final ArrayList<Searchable> searchablePull;
+
+    public SearchEngine() {
+        this.searchablePull = new ArrayList<>();
     }
 
-    public Searchable[] search(String searchTerm) {
-        int amountOfCoincidence = 0;
-        int maxAmountOfCoincidence = 5;
-        Searchable[] searchResult = new Searchable[maxAmountOfCoincidence];
+    public void add(Searchable addSearchableUnit) {
+        this.searchablePull.add(addSearchableUnit);
+    }
+
+    public ArrayList<Searchable> search(String searchTerm) {
+        ArrayList<Searchable> searchResult = new ArrayList<>();
         for (Searchable searchObject : searchablePull) {
             if (searchObject == null) {
                 continue;
             }
             if ((searchObject.searchTerm()).contains(searchTerm)) {
-                searchResult[amountOfCoincidence] = searchObject;
-                amountOfCoincidence++;
-            }
-            if (amountOfCoincidence == maxAmountOfCoincidence) {
-                break;
+                searchResult.add(searchObject);
             }
         }
         return searchResult;
     }
 
-    public void add(Searchable addSearchableUnit) {
-        if (count == searchablePull.length) {
-            System.out.println("Пулл поиска заполнен!");
-        } else {
-            this.searchablePull[count] = addSearchableUnit;
-            count++;
-        }
-    }
 
     public Searchable searchCoincidence(String search) throws BestResultNotFound {
         int IndexObjectMaxCoincidences = 0;
         int maxCoincidence = 0;
-        for (int i = 0; i < searchablePull.length; i++) {
-            String str = searchablePull[i].searchTerm();
+        for (int i = 0; i < searchablePull.size(); i++) {
+            String str = searchablePull.get(i).searchTerm();
             int coincidence = 0;
             int strIndex = 0;
             int subStrIndex = str.indexOf(search, strIndex);
@@ -59,7 +50,7 @@ public class SearchEngine {
         if (maxCoincidence == 0) {
             throw new BestResultNotFound("По запросу \"" + search + "\" не найдено результатов.");
         } else {
-            return searchablePull[IndexObjectMaxCoincidences];
+            return searchablePull.get(IndexObjectMaxCoincidences);
         }
     }
 }
