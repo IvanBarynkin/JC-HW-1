@@ -13,13 +13,13 @@ public class ProductBasket {
         products = new ArrayList<>();
     }
 
-    public void addProduct(Product product) {
+    public void add(Product product) {
         products.add(product);
         System.out.println("Продукт добавлен в корзину.");
     }
 
-    public ArrayList<Product> delProduct(String nameOfProduct) {
-        ArrayList<Product> removedProducts = null;
+    public ArrayList<Product> del(String nameOfProduct){
+        ArrayList<Product> removedProducts = new ArrayList<>();
         Iterator<Product> productIterator = products.iterator();
         while (productIterator.hasNext()) {
             Product nextproduct = productIterator.next();
@@ -77,6 +77,10 @@ public class ProductBasket {
         str += "Итого: " + this.basketCost() + "\n";
         str += "Специальных товаров: " + specialProductAmount + "\n";
         return str;
+    }
+
+    public void printBasket(){
+        System.out.println(toString());
     }
 }
 
