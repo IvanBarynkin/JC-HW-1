@@ -13,38 +13,69 @@ import java.util.Arrays;
 public class App {
     public static void main() {
 
-
-        /*Добрый день!
-        Попробовал в этом задании применить знания на тему интерфейсов.
-        Реализовал проверку правильности заполнения полей через интерфейс.
-         */
-
-        //Создание различных продуктов, проверка правильности заполнения полей.
-        System.out.println("//Создание различных продуктов, проверка правильности заполнения полей.");
-        SimpleProduct firstIncorrect = new SimpleProduct("", 100);
-        DiscountedProduct secondIncorrect = new DiscountedProduct("two", 200, 1000);
-        FixPriceProduct thirdIncorrect = new FixPriceProduct("three", -100);
-
-        //Создание различных продуктов с правильно заполненными полями.
-        System.out.println("//Создание различных продуктов, проверка правильности заполнения полей.");
+        //Создание различных продуктов и статей
+        System.out.println("Создание различных продуктов и статей");
         SimpleProduct first = new SimpleProduct("one", 100);
         DiscountedProduct second = new DiscountedProduct("two", 200, 50);
         FixPriceProduct third = new FixPriceProduct("three", 300);
-
-
-        //Создаем поисковой пулл на 5 мест и заполняем 3 объектами типа Товар и 2 объектами типа Статья.
-        System.out.println("//Создаем поисковой пулл на 5 мест и заполняем 3 объектами типа Товар и 2 объектами типа Статья.");
-        SearchEngine Searcher = new SearchEngine(5);
-
+        SimpleProduct fourth = new SimpleProduct("one", 400);
         Article articleOne = new Article("A one", "search");
         Article articleTwo = new Article("A two", "search search");
 
+        //Создание корзины
+        System.out.println("Создание корзины");
+        ProductBasket basket = new ProductBasket();
+
+        //Отображение корзины
+        System.out.println("Отображение корзины");
+        basket.printBasket();
+
+        //Добавление продуктов в корзину
+        System.out.println("Добавление продуктов в корзину");
+        basket.add(first);
+        basket.add(second);
+        basket.add(third);
+        basket.add(fourth);
+
+        //Отображение корзины
+        System.out.println("Отображение корзины");
+        basket.printBasket();
+
+        //Отображение списка продуктов, удаленных из корзины
+        System.out.println("Отображение списка продуктов, удаленных из корзины");
+        System.out.println(basket.del("one"));
+
+        //Отображение корзины
+        System.out.println("Отображение корзины");
+        basket.printBasket();
+
+
+        //Попытка удаления несуществующего продукта и последующая "проверка пустоты" возвращаемого списка
+        System.out.println("Попытка удаления несуществующего продукта и последующая \"проверка пустоты\" возвращаемого списка");
+
+        if (basket.del("five").isEmpty()) {
+            System.out.println("Список пуст!");
+        }
+
+        //Отображение корзины
+        System.out.println("Отображение корзины");
+        basket.printBasket();
+
+        //Создаем поисковой пулл
+        System.out.println("//Создаем поисковой пулл.");
+        SearchEngine Searcher = new SearchEngine();
+
+        //Заполнение пулла
+        System.out.println("Заполнение пулла");
         Searcher.add(first);
         Searcher.add(second);
         Searcher.add(third);
+        Searcher.add(fourth);
         Searcher.add(articleOne);
         Searcher.add(articleTwo);
 
+        //Поиск объектов
+        System.out.println("Поиск объектов");
         try {
             System.out.println(Searcher.searchCoincidence("two"));
         } catch (BestResultNotFound e) {
@@ -56,5 +87,7 @@ public class App {
         } catch (BestResultNotFound e) {
             System.out.println(e);
         }
+
+        System.out.println(Searcher.search("two"));
     }
 }

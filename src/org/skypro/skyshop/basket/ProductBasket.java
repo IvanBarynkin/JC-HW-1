@@ -3,23 +3,33 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ProductBasket {
 
     private final ArrayList<Product> products;
-    private final int size;
 
-    public ProductBasket(int size) {
-        this.size = size;
-        products = new ArrayList<>(size);
+    public ProductBasket() {
+        products = new ArrayList<>();
     }
 
-    public void addProduct(Product product) {
-        if (products.size() < size) {
-            products.add(product);
-        } else {
-            System.out.println("Корзина заполнена!");
+    public void add(Product product) {
+        products.add(product);
+        System.out.println("Продукт добавлен в корзину.");
+    }
+
+    public ArrayList<Product> del(String nameOfProduct){
+        ArrayList<Product> removedProducts = new ArrayList<>();
+        Iterator<Product> productIterator = products.iterator();
+        while (productIterator.hasNext()) {
+            Product nextproduct = productIterator.next();
+            if (nextproduct.getName().equals(nameOfProduct)) {
+                removedProducts.add(nextproduct);
+                productIterator.remove();
+            }
         }
+        return removedProducts;
+
     }
 
     public int basketCost() {
@@ -67,6 +77,10 @@ public class ProductBasket {
         str += "Итого: " + this.basketCost() + "\n";
         str += "Специальных товаров: " + specialProductAmount + "\n";
         return str;
+    }
+
+    public void printBasket(){
+        System.out.println(toString());
     }
 }
 
