@@ -3,6 +3,7 @@ package org.skypro.skyshop.searchEngine;
 import org.skypro.skyshop.searchable.Searchable;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class SearchEngine {
     private final ArrayList<Searchable> searchablePull;
@@ -15,14 +16,14 @@ public class SearchEngine {
         this.searchablePull.add(addSearchableUnit);
     }
 
-    public ArrayList<Searchable> search(String searchTerm) {
-        ArrayList<Searchable> searchResult = new ArrayList<>();
+    public TreeMap<String,Searchable> search(String searchTerm) {
+        TreeMap<String,Searchable> searchResult = new TreeMap<>();
         for (Searchable searchObject : searchablePull) {
             if (searchObject == null) {
                 continue;
             }
             if ((searchObject.searchTerm()).contains(searchTerm)) {
-                searchResult.add(searchObject);
+                searchResult.put(searchObject.searchName(),searchObject);
             }
         }
         return searchResult;
