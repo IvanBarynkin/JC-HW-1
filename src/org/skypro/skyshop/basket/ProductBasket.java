@@ -3,57 +3,54 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductBasket {
 
-    private final ArrayList<Product> products;
+    private final Map<String, ArrayList<Product>> products;
 
     public ProductBasket() {
-        products = new ArrayList<>();
+        products = new HashMap<>();
     }
 
     public void add(Product product) {
-        products.add(product);
+        String key = product.getName();
+        ArrayList<Product> productListByKey;
+        if (products.containsKey(key)) {
+            productListByKey = products.get(key);
+        } else {
+            productListByKey = new ArrayList<>();
+        }
+        productListByKey.add(product);
+        products.put(key, productListByKey);
         System.out.println("Продукт добавлен в корзину.");
     }
 
-    public ArrayList<Product> del(String nameOfProduct){
-        ArrayList<Product> removedProducts = new ArrayList<>();
-        Iterator<Product> productIterator = products.iterator();
-        while (productIterator.hasNext()) {
-            Product nextproduct = productIterator.next();
-            if (nextproduct.getName().equals(nameOfProduct)) {
-                removedProducts.add(nextproduct);
-                productIterator.remove();
-            }
-        }
+    public ArrayList<Product> del(String nameOfProduct) {
+        ArrayList<Product> removedProducts = products.get(nameOfProduct);
+        products.remove(nameOfProduct);
         return removedProducts;
-
     }
 
     public int basketCost() {
         int allCost = 0;
-        for (Product product : products) {
-            allCost += product.getCost();
+        for (Map.Entry<String, ArrayList<Product>> productList : products.entrySet()) {
+            for (Product product : productList.getValue()) {
+                allCost += product.getCost();
+            }
         }
         return allCost;
     }
 
     public boolean checkProduct(String name) {
 
-        if (products.isEmpty()) {
-            System.out.println("Корзина пуста.");
+        if (products.containsKey(name)) {
+            System.out.println("Продукты с таким именем есть в корзине");
+            return true;
+        } else {
             return false;
         }
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                System.out.println("Такой товар есть в корзине.");
-                return true;
-            }
-        }
-        System.out.println("Такого товара нет в корзине.");
-        return false;
     }
 
     public void clear() {
@@ -65,21 +62,22 @@ public class ProductBasket {
     public String toString() {
         if (products.isEmpty()) {
             return "В корзине пусто.";
-        }
-        String str = "";
-        int specialProductAmount = 0;
-        for (Product product : products) {
-            if (product.isSpecial()) {
-                specialProductAmount++;
+        } else {
+            String str = "";
+            int specialProductAmount = 0;
+            for (Map.Entry<String, ArrayList<Product>> productList : products.entrySet()) {
+                str += "Продукты с именем " + productList.getKey() + ":" + "\n";
+                for (Product product : productList.getValue()) {
+                    str += "   " + product.toString() + ";" + "\n";
+                }
             }
-            str += product + "\n";
+            str += "Итого: " + this.basketCost() + "\n";
+            str += "Специальных товаров: " + specialProductAmount + "\n";
+            return str;
         }
-        str += "Итого: " + this.basketCost() + "\n";
-        str += "Специальных товаров: " + specialProductAmount + "\n";
-        return str;
     }
 
-    public void printBasket(){
+    public void printBasket() {
         System.out.println(toString());
     }
 }
