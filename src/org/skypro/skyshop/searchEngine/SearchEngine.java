@@ -2,28 +2,30 @@ package org.skypro.skyshop.searchEngine;
 
 import org.skypro.skyshop.searchable.Searchable;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class SearchEngine {
-    private final ArrayList<Searchable> searchablePull;
+    private final Set<Searchable> searchablePull;
 
     public SearchEngine() {
-        this.searchablePull = new ArrayList<>();
+        this.searchablePull = new HashSet<>();
     }
 
     public void add(Searchable addSearchableUnit) {
         this.searchablePull.add(addSearchableUnit);
     }
 
-    public TreeMap<String,Searchable> search(String searchTerm) {
-        TreeMap<String,Searchable> searchResult = new TreeMap<>();
+    public Set<Searchable> search(String searchTerm) {
+        TreeSet<Searchable> searchResult = new TreeSet<>(new SearchPullComparator());
         for (Searchable searchObject : searchablePull) {
             if (searchObject == null) {
                 continue;
             }
             if ((searchObject.searchTerm()).contains(searchTerm)) {
-                searchResult.put(searchObject.searchName(),searchObject);
+                searchResult.add(searchObject);
             }
         }
         return searchResult;
@@ -31,10 +33,10 @@ public class SearchEngine {
 
 
     public Searchable searchCoincidence(String search) throws BestResultNotFound {
-        int IndexObjectMaxCoincidences = 0;
+        Searchable ObjectOfMaxCoincidences = null;
         int maxCoincidence = 0;
-        for (int i = 0; i < searchablePull.size(); i++) {
-            String str = searchablePull.get(i).searchTerm();
+        for (Searchable searchable : searchablePull) {
+            String str = searchable.searchTerm();
             int coincidence = 0;
             int strIndex = 0;
             int subStrIndex = str.indexOf(search, strIndex);
@@ -45,13 +47,17 @@ public class SearchEngine {
             }
             if (coincidence > maxCoincidence) {
                 maxCoincidence = coincidence;
-                IndexObjectMaxCoincidences = i;
+                ObjectOfMaxCoincidences = searchable;
             }
         }
         if (maxCoincidence == 0) {
             throw new BestResultNotFound("По запросу \"" + search + "\" не найдено результатов.");
         } else {
-            return searchablePull.get(IndexObjectMaxCoincidences);
+            return ObjectOfMaxCoincidences;
         }
+    }
+
+    public void clear() {
+        searchablePull.clear();
     }
 }
