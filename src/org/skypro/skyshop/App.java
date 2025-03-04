@@ -12,82 +12,28 @@ import java.util.Arrays;
 
 public class App {
     public static void main() {
-
-        //Создание различных продуктов и статей
-        System.out.println("Создание различных продуктов и статей");
-        SimpleProduct first = new SimpleProduct("one", 100);
-        DiscountedProduct second = new DiscountedProduct("two", 200, 50);
-        FixPriceProduct third = new FixPriceProduct("three", 300);
-        SimpleProduct fourth = new SimpleProduct("one", 400);
-        Article articleOne = new Article("A one", "search");
-        Article articleTwo = new Article("A two", "search search");
-
-        //Создание корзины
-        System.out.println("Создание корзины");
-        ProductBasket basket = new ProductBasket();
-
-        //Отображение корзины
-        System.out.println("Отображение корзины");
-        basket.printBasket();
-
-        //Добавление продуктов в корзину
-        System.out.println("Добавление продуктов в корзину");
-        basket.add(first);
-        basket.add(second);
-        basket.add(third);
-        basket.add(fourth);
-
-        //Отображение корзины
-        System.out.println("Отображение корзины");
-        basket.printBasket();
-
-        //Отображение списка продуктов, удаленных из корзины
-        System.out.println("Отображение списка продуктов, удаленных из корзины");
-        System.out.println(basket.del("one"));
-
-        //Отображение корзины
-        System.out.println("Отображение корзины");
-        basket.printBasket();
-
-
-        //Попытка удаления несуществующего продукта и последующая "проверка пустоты" возвращаемого списка
-        System.out.println("Попытка удаления несуществующего продукта и последующая \"проверка пустоты\" возвращаемого списка");
-
-        if (basket.del("five") == null) {
-            System.out.println("Список пуст!");
-        }
-
-        //Отображение корзины
-        System.out.println("Отображение корзины");
-        basket.printBasket();
-
-        //Создаем поисковой пулл
-        System.out.println("//Создаем поисковой пулл.");
+        //Создание поискового пулла:
+        System.out.println("//Создание поискового пулла:");
         SearchEngine Searcher = new SearchEngine();
 
-        //Заполнение пулла
-        System.out.println("Заполнение пулла");
-        Searcher.add(first);
-        Searcher.add(second);
-        Searcher.add(third);
-        Searcher.add(fourth);
-        Searcher.add(articleOne);
-        Searcher.add(articleTwo);
+        //Создание статей, 4-ая статья дубликат 2-ой:
+        System.out.println("//Создание статей, 4-ая статья дубликат 2-ой:");
+        Article article1 = new Article("OneOneOneOne", "1");
+        Article article2 = new Article("OneOne", "11");
+        Article article3 = new Article("OneOneOne", "111");
+        Article article4 = new Article("OneOne", "222");
+        Article article5 = new Article("OneTwo", "333");
 
-        //Поиск объектов
-        System.out.println("Поиск объектов");
-        try {
-            System.out.println(Searcher.searchCoincidence("two"));
-        } catch (BestResultNotFound e) {
-            System.out.println(e);
-        }
+        Searcher.add(article1);
+        Searcher.add(article2);
+        Searcher.add(article3);
+        Searcher.add(article4);
+        Searcher.add(article5);
 
-        try {
-            System.out.println(Searcher.searchCoincidence("A three"));
-        } catch (BestResultNotFound e) {
-            System.out.println(e);
-        }
+        //Поиск статей с поисковым запросом One, обратите внимание, что дубликат (4-ая статья) не попал в поисковой пулл:
+        System.out.println("//Поиск статей с поисковым запросом One, обратите внимание, что дубликат (4-ая статья) не попал в поисковой пулл:");
+        System.out.println(Searcher.search("One"));
 
-        System.out.println(Searcher.search("two"));
+
     }
 }

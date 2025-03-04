@@ -2,6 +2,7 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class ProductBasket {
         System.out.println("Продукт добавлен в корзину.");
     }
 
-    public ArrayList<Product> del(String nameOfProduct) {
+    public List<Product> del(String nameOfProduct) {
         ArrayList<Product> removedProducts = products.get(nameOfProduct);
         products.remove(nameOfProduct);
         return removedProducts;

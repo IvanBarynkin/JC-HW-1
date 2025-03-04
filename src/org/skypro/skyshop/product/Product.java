@@ -8,12 +8,12 @@ public abstract class Product implements Searchable, InputChecks {
     protected String name;
 
     public Product(String name) {
-        try{
+        try {
             checkName(name);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
-            this.name = name;
+        this.name = name;
     }
 
 
@@ -30,6 +30,10 @@ public abstract class Product implements Searchable, InputChecks {
     @Override
     public String searchName() {
         return name;
+    }
+
+    public boolean equals(Product other) {
+        return (this.getName() == other.getName());
     }
 
     public abstract int getCost();
