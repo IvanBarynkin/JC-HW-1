@@ -11,4 +11,8 @@ public interface Searchable {
     default void getStringRepresentation() {
         System.out.println("Имя - " + this.searchName() + " , тип объекта - " + this.searchContentType());
     }
+
+    default int compareTo(Searchable o2){
+        return this.searchName().compareTo(o2.searchName());
+    }
 }

@@ -19,7 +19,7 @@ public class SearchEngine {
     }
 
     public Set<Searchable> search(String searchTerm) {
-        TreeSet<Searchable> searchResult = new TreeSet<>(new SearchPullComparator());
+        Set<Searchable> searchResult = new TreeSet<>(new SearchPullComparator());
         for (Searchable searchObject : searchablePull) {
             if (searchObject == null) {
                 continue;
@@ -33,7 +33,7 @@ public class SearchEngine {
 
 
     public Searchable searchCoincidence(String search) throws BestResultNotFound {
-        Searchable ObjectOfMaxCoincidences = null;
+        Searchable objectOfMaxCoincidences = null;
         int maxCoincidence = 0;
         for (Searchable searchable : searchablePull) {
             String str = searchable.searchTerm();
@@ -47,13 +47,13 @@ public class SearchEngine {
             }
             if (coincidence > maxCoincidence) {
                 maxCoincidence = coincidence;
-                ObjectOfMaxCoincidences = searchable;
+                objectOfMaxCoincidences = searchable;
             }
         }
         if (maxCoincidence == 0) {
             throw new BestResultNotFound("По запросу \"" + search + "\" не найдено результатов.");
         } else {
-            return ObjectOfMaxCoincidences;
+            return objectOfMaxCoincidences;
         }
     }
 

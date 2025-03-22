@@ -37,8 +37,8 @@ public class Article implements Searchable {
         return name;
     }
 
-    public boolean equals(Article other) {
-        return (this.getName() == other.getName());
+    public boolean equalsArticle(Article other) {
+        return (this.getName().equals(other.getName()));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.skypro.skyshop.product;
 
 import org.skypro.skyshop.InputChecks.InputChecks;
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.searchable.Searchable;
 
 public abstract class Product implements Searchable, InputChecks {
@@ -32,8 +33,9 @@ public abstract class Product implements Searchable, InputChecks {
         return name;
     }
 
-    public boolean equals(Product other) {
-        return (this.getName() == other.getName());
+
+    public boolean equalsProduct(Product other) {
+        return (this.getName().equals(other.getName()));
     }
 
     public abstract int getCost();
