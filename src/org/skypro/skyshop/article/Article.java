@@ -1,5 +1,6 @@
 package org.skypro.skyshop.article;
 
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.searchable.Searchable;
 
 public class Article implements Searchable {
@@ -36,6 +37,9 @@ public class Article implements Searchable {
         return name;
     }
 
+    public boolean equalsArticle(Article other) {
+        return (this.getName().equals(other.getName()));
+    }
 
     @Override
     public String toString() {

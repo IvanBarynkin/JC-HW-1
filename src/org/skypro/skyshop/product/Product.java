@@ -1,6 +1,7 @@
 package org.skypro.skyshop.product;
 
 import org.skypro.skyshop.InputChecks.InputChecks;
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.searchable.Searchable;
 
 public abstract class Product implements Searchable, InputChecks {
@@ -8,12 +9,12 @@ public abstract class Product implements Searchable, InputChecks {
     protected String name;
 
     public Product(String name) {
-        try{
+        try {
             checkName(name);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
-            this.name = name;
+        this.name = name;
     }
 
 
@@ -30,6 +31,11 @@ public abstract class Product implements Searchable, InputChecks {
     @Override
     public String searchName() {
         return name;
+    }
+
+
+    public boolean equalsProduct(Product other) {
+        return (this.getName().equals(other.getName()));
     }
 
     public abstract int getCost();
