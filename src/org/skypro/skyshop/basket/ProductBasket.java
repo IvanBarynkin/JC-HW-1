@@ -38,19 +38,11 @@ public class ProductBasket {
 
     public int basketCost() {
 
-        /*return products.values()
+        return products.values()
                 .stream()
                 .flatMap(Collection::stream)
                 .mapToInt(Product::getCost)
-                .sum();*/
-
-        int allCost = 0;
-        for (Map.Entry<String, ArrayList<Product>> productList : products.entrySet()) {
-            for (Product product : productList.getValue()) {
-                allCost += product.getCost();
-            }
-        }
-        return allCost;
+                .sum();
     }
 
     public boolean checkProduct(String name) {
@@ -72,8 +64,7 @@ public class ProductBasket {
     public String toString() {
         if (products.isEmpty()) {
             return "В корзине пусто.";
-        }
-        else{
+        } else {
             int specialProductAmount = 0;
             return products.values()
                     .stream()
@@ -87,12 +78,12 @@ public class ProductBasket {
         }
     }
 
-    protected int getSpecialCount(){
-           return products.values()
-                   .stream()
-                   .flatMap(Collection::stream)
-                   .mapToInt(p -> p.isSpecial()? 1:0)
-                   .sum();
+    protected int getSpecialCount() {
+        return products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .mapToInt(p -> p.isSpecial() ? 1 : 0)
+                .sum();
 
     }
 
