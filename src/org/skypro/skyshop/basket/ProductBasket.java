@@ -1,11 +1,10 @@
 package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.searchEngine.SearchPullComparator;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductBasket {
 
@@ -29,19 +28,21 @@ public class ProductBasket {
     }
 
     public List<Product> del(String nameOfProduct) {
-        ArrayList<Product> removedProducts = products.get(nameOfProduct);
-        products.remove(nameOfProduct);
-        return removedProducts;
+
+        return products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(product -> !Objects.equals(product.getName(), nameOfProduct))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int basketCost() {
-        int allCost = 0;
-        for (Map.Entry<String, ArrayList<Product>> productList : products.entrySet()) {
-            for (Product product : productList.getValue()) {
-                allCost += product.getCost();
-            }
-        }
-        return allCost;
+
+        return products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getCost)
+                .sum();
     }
 
     public boolean checkProduct(String name) {
@@ -64,18 +65,26 @@ public class ProductBasket {
         if (products.isEmpty()) {
             return "В корзине пусто.";
         } else {
-            String str = "";
             int specialProductAmount = 0;
-            for (Map.Entry<String, ArrayList<Product>> productList : products.entrySet()) {
-                str += "Продукты с именем " + productList.getKey() + ":" + "\n";
-                for (Product product : productList.getValue()) {
-                    str += "   " + product.toString() + ";" + "\n";
-                }
-            }
-            str += "Итого: " + this.basketCost() + "\n";
-            str += "Специальных товаров: " + specialProductAmount + "\n";
-            return str;
+            return products.values()
+                    .stream()
+                    .flatMap(Collection::stream)
+                    .map(Product::toString)
+                    .collect(Collectors.joining("\n")) +
+                    "\n" + "Итого: " + basketCost() + "\n" +
+                    "Специальных товаров: " + specialProductAmount + "\n";
+
+
         }
+    }
+
+    protected int getSpecialCount() {
+        return products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .mapToInt(p -> p.isSpecial() ? 1 : 0)
+                .sum();
+
     }
 
     public void printBasket() {
